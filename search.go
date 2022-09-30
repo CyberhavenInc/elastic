@@ -159,6 +159,13 @@ func (s *SearchService) PointInTime(pointInTime *PointInTime) *SearchService {
 	return s
 }
 
+// Hacked because the library doesn't support it out of the box.
+// https://github.com/olivere/elastic/issues/1633
+func (s *SearchService) Slice(sliceQuery Query) *SearchService {
+	s.searchSource = s.searchSource.Slice(sliceQuery)
+	return s
+}
+
 // RuntimeMappings specifies optional runtime mappings.
 func (s *SearchService) RuntimeMappings(runtimeMappings RuntimeMappings) *SearchService {
 	s.searchSource = s.searchSource.RuntimeMappings(runtimeMappings)
